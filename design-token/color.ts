@@ -1,3 +1,5 @@
+import { ValueOf } from "@/utils/type";
+
 const Color = {
   Neutral: {
     B50: "#F8F8FF",
@@ -26,5 +28,10 @@ const Color = {
     WarningBg: "rgba(255, 179, 65, 0.10)",
   },
 } as const;
+
+export type ColorValue =
+  | ValueOf<typeof Color.Neutral>
+  | ValueOf<typeof Color.Brand>
+  | ValueOf<typeof Color.Semantic>;
 
 export default Color;

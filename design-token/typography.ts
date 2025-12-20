@@ -1,3 +1,5 @@
+import { ValueOf } from "@/utils/type";
+
 const Typography = {
   display: {
     lg: {
@@ -66,5 +68,11 @@ const Typography = {
     },
   },
 } as const;
+
+export type TypographyVariant =
+  | ValueOf<typeof Typography.display>
+  | ValueOf<typeof Typography.body>
+  | ValueOf<typeof Typography.heading>
+  | ValueOf<typeof Typography.label>;
 
 export default Typography;
