@@ -7,13 +7,7 @@ type TypoProps = {
   style?: TextProps["style"];
 } & Omit<TextProps, "style">;
 
-const Typography = ({
-  variant,
-  color,
-  style,
-  children,
-  ...props
-}: TypoProps) => {
+const Typo = ({ variant, color, style, children, ...props }: TypoProps) => {
   return (
     <Text style={[variant, color && { color }, style]} {...props}>
       {children}
@@ -21,4 +15,4 @@ const Typography = ({
   );
 };
 
-export default Typography;
+export default Typo;

@@ -2,7 +2,7 @@ import { Color, Radius, Spacing, Typography } from "@/design-token";
 import { ColorValue } from "@/design-token/color";
 import React from "react";
 import { Pressable, PressableProps, ViewStyle } from "react-native";
-import Typo from "./Typography";
+import Typo from "./Typo";
 
 type ButtonSize = "small" | "medium" | "large";
 type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
