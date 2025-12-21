@@ -1,10 +1,15 @@
+import CloseIcon from "@/components/icon/CloseIcon";
 import MenuIcon from "@/components/icon/MenuIcon";
 import Button from "@/components/ui/Button";
+import Tabs from "@/components/ui/Tabs";
 import Typography from "@/components/ui/Typo";
 import { Color, Spacing, Typography as TypographyTokens } from "@/design-token";
+import { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 export default function Index() {
+  const [tabIndex, setTabIndex] = useState(0);
+
   return (
     <ScrollView
       style={styles.container}
@@ -195,7 +200,17 @@ export default function Index() {
           </Button>
         </View>
       </View>
+      <View>
+        <Tabs
+          selectedIndex={tabIndex}
+          onSelectHandler={(index) => {
+            setTabIndex(index);
+          }}
+          menu={["test1", "test2", "나는 좀 긴 텍스트야"]}
+        />
+      </View>
       <MenuIcon />
+      <CloseIcon />
     </ScrollView>
   );
 }
