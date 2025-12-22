@@ -70,7 +70,7 @@ const Button = ({
       case "outline":
         return {
           ...baseStyles,
-          backgroundColor: "transparent",
+          backgroundColor: Color.Neutral.WHITE,
           borderWidth: 1,
           borderColor: Color.Brand.PRIMARY,
         };
