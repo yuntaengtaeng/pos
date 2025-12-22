@@ -2,10 +2,10 @@ import Typo from "@/components/ui/Typo";
 import { Typography } from "@/design-token";
 import { StyleSheet, View } from "react-native";
 
-const TableScreen = () => {
+const Hall = () => {
   return (
     <View style={styles.container}>
-      <Typo variant={Typography.heading.xl}>테이블</Typo>
+      <Typo variant={Typography.heading.xl}>홀</Typo>
     </View>
   );
 };
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TableScreen;
+export default Hall;
