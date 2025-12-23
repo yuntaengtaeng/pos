@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Order } from "../types";
+import { Order } from "../../types";
 
 const useOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);

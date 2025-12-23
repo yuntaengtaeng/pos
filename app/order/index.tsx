@@ -2,14 +2,14 @@ import Button from "@/components/ui/Button";
 import SegmentedControl from "@/components/ui/SegmentedControl";
 import Tabs from "@/components/ui/Tabs";
 import { Color, Spacing } from "@/design-token";
-import Count from "@/feature/order/components/Count";
-import MenuItem from "@/feature/order/components/MenuItem";
-import OrderItem from "@/feature/order/components/OrderItem";
-import OrderWrapper from "@/feature/order/components/OrderWrapper";
-import Total from "@/feature/order/components/Total";
-import useOrders from "@/feature/order/hooks/useOrders";
+import Count from "@/feature/order/ordering/components/Count";
+import MenuItemContainer from "@/feature/order/ordering/components/MenuItemContainer";
+import OrderItem from "@/feature/order/ordering/components/OrderItem";
+import OrderWrapper from "@/feature/order/ordering/components/OrderWrapper";
+import Total from "@/feature/order/ordering/components/Total";
+import useOrders from "@/feature/order/ordering/hooks/useOrders";
 import { useEffect, useState } from "react";
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 const dummy = [
   {
@@ -55,13 +55,6 @@ const dummy = [
 ];
 
 const OrderScreen = () => {
-  const NUM_COLUMNS = 5;
-  const [flatListWidth, setFlatListWidth] = useState(0);
-  const gap = Spacing.sm;
-  const itemWidth =
-    flatListWidth > 0
-      ? (flatListWidth - gap * (NUM_COLUMNS - 1)) / NUM_COLUMNS
-      : 0;
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
   const [orderTypeIndex, setOrderTypeIndex] = useState(0);
   const [selectedOrderId, setSelectOrderId] = useState(-1);
@@ -82,35 +75,18 @@ const OrderScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.left}>
-        <Tabs
-          selectedIndex={selectedMenuIndex}
-          onSelectHandler={(index) => {
-            setSelectedMenuIndex(index);
-          }}
-          menu={["메뉴1", "메뉴2"]}
-        />
-        <FlatList
-          style={styles.menuContainer}
-          data={dummy}
-          onLayout={(event) => {
-            const { width } = event.nativeEvent.layout;
-            setFlatListWidth(width);
-          }}
-          renderItem={({ item }) => (
-            <View style={{ width: itemWidth }}>
-              <MenuItem
-                name={item.name}
-                price={item.price}
-                onPress={() => {
-                  handleMenuItemPress(item);
-                }}
-              />
-            </View>
-          )}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={NUM_COLUMNS}
-          columnWrapperStyle={itemWidth > 0 ? { gap } : undefined}
-          contentContainerStyle={{ gap }}
+        <View style={styles.tabContainer}>
+          <Tabs
+            selectedIndex={selectedMenuIndex}
+            onSelectHandler={(index) => {
+              setSelectedMenuIndex(index);
+            }}
+            menu={["메뉴1", "메뉴2"]}
+          />
+        </View>
+        <MenuItemContainer
+          menus={dummy}
+          handleMenuItemPress={handleMenuItemPress}
         />
       </View>
       <View style={styles.right}>
@@ -184,12 +160,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
-  menuContainer: {
-    margin: Spacing.md,
-  },
   left: {
     flex: 0.8,
     backgroundColor: Color.Neutral.GRAY,
+  },
+  tabContainer: {
+    paddingHorizontal: Spacing.md,
+    backgroundColor: Color.Neutral.WHITE,
   },
   right: {
     backgroundColor: Color.Neutral.WHITE,

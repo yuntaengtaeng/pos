@@ -1,7 +1,7 @@
 import Typo from "@/components/ui/Typo";
 import { Typography } from "@/design-token";
 import { StyleSheet, View } from "react-native";
-import { Order } from "../types";
+import { Order } from "../../types";
 
 type Props = {
   orders: Order[];
