@@ -1,5 +1,7 @@
 import CloseIcon from "@/components/icon/CloseIcon";
 import MenuIcon from "@/components/icon/MenuIcon";
+import MinusIcon from "@/components/icon/MinusIcon";
+import PlusIcon from "@/components/icon/PlusIcon";
 import Button from "@/components/ui/Button";
 import Tabs from "@/components/ui/Tabs";
 import Typography from "@/components/ui/Typo";
@@ -211,6 +213,8 @@ export default function Index() {
       </View>
       <MenuIcon />
       <CloseIcon />
+      <MinusIcon />
+      <PlusIcon />
     </ScrollView>
   );
 }
