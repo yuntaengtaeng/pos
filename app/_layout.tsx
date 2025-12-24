@@ -25,7 +25,35 @@ export default function RootLayout() {
         ]}
       >
         <Header />
-        <Stack screenOptions={{ headerShown: false }} />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: "slide_from_right",
+            animationDuration: 300,
+          }}
+        >
+          <Stack.Screen
+            name="table/index"
+            options={{
+              animation: "fade",
+              animationDuration: 300,
+            }}
+          />
+          <Stack.Screen
+            name="status/index"
+            options={{
+              animation: "fade",
+              animationDuration: 300,
+            }}
+          />
+          <Stack.Screen
+            name="order/index"
+            options={{
+              animation: "fade",
+              animationDuration: 300,
+            }}
+          />
+        </Stack>
       </View>
     </>
   );
