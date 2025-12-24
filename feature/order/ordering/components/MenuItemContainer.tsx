@@ -1,6 +1,6 @@
 import { Menu } from "@/data";
 import { Spacing } from "@/design-token";
-import { useState } from "react";
+import useItemWidth from "@/hooks/useItemWidth";
 import { FlatList, StyleSheet, View } from "react-native";
 import MenuItem from "./MenuItem";
 
@@ -11,21 +11,16 @@ type Props = {
 
 const MenuItemContainer = ({ menus, handleMenuItemPress }: Props) => {
   const NUM_COLUMNS = 5;
-  const [flatListWidth, setFlatListWidth] = useState(0);
   const gap = Spacing.sm;
-  const itemWidth =
-    flatListWidth > 0
-      ? (flatListWidth - gap * (NUM_COLUMNS - 1)) / NUM_COLUMNS
-      : 0;
-
+  const { itemWidth, onLayout } = useItemWidth({
+    columns: NUM_COLUMNS,
+    gap,
+  });
   return (
     <FlatList
       style={styles.container}
       data={menus}
-      onLayout={(event) => {
-        const { width } = event.nativeEvent.layout;
-        setFlatListWidth(width);
-      }}
+      onLayout={onLayout}
       renderItem={({ item }) => (
         <View style={{ width: itemWidth }}>
           <MenuItem

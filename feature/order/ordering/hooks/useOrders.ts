@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Order } from "../../types";
+import { OrderItem } from "../../types";
 
 const useOrders = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<OrderItem[]>([]);
 
   const handleMenuItemPress = (item: {
     id: number;
