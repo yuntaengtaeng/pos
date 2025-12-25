@@ -1,6 +1,6 @@
 import Typo from "@/components/ui/Typo";
+import { OrderItem } from "@/data";
 import { Color, Radius, Spacing, Typography } from "@/design-token";
-import { OrderItem } from "@/feature/order/types";
 import React from "react";
 import {
   Pressable,

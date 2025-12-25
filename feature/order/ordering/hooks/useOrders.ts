@@ -1,5 +1,5 @@
+import { OrderItem } from "@/data";
 import { useState } from "react";
-import { OrderItem } from "../../types";
 
 const useOrders = () => {
   const [orders, setOrders] = useState<OrderItem[]>([]);
