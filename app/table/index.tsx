@@ -1,22 +1,24 @@
 import Tabs from "@/components/ui/Tabs";
 import { Color, Spacing } from "@/design-token";
 import Hall from "@/feature/table/components/Hall";
+import Orders from "@/feature/table/components/Orders";
+import { useOrderStore } from "@/store/order";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-const dummyTables = [
-  {
-    id: 1,
-    tableName: "테이블1",
-  },
-  {
-    id: 2,
-    tableName: "테이블2",
-  },
-];
-
 const TableLayout = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { tableSections } = useOrderStore();
+
+  const tableMenu = tableSections.map((tableSection) => tableSection.name);
+  const menu = [...tableMenu, "포장/배달"];
+
+  const renderView =
+    selectedIndex + 1 === menu.length ? (
+      <Orders />
+    ) : (
+      <Hall tables={tableSections[selectedIndex].tables} />
+    );
 
   return (
     <View style={styles.container}>
@@ -26,10 +28,10 @@ const TableLayout = () => {
           onSelectHandler={(index) => {
             setSelectedIndex(index);
           }}
-          menu={["홀1", "홀2", "포장/배달"]}
+          menu={menu}
         />
       </View>
-      <Hall />
+      {renderView}
     </View>
   );
 };

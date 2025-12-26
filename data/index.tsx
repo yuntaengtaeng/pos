@@ -11,10 +11,27 @@ export type OrderItem = {
   count: number;
 };
 
+type BaseOrderSession = {
+  orders: OrderItem[];
+};
+
+export type TableSection = {
+  id: number;
+  name: string;
+  tables: Table[];
+};
+
 export type Table = {
   id: number;
   name: string;
-  orders: OrderItem[];
   x: number;
   y: number;
+} & BaseOrderSession;
+
+export type TakeoutOrder = BaseOrderSession & {
+  id?: number;
+};
+
+export type DeliveryOrder = BaseOrderSession & {
+  id?: number;
 };

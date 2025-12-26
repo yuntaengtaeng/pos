@@ -1,9 +1,11 @@
 import Header from "@/components/ui/Header";
+import useInitSetting from "@/hooks/useInitSetting";
 import * as NavigationBar from "expo-navigation-bar";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { Platform, StyleSheet, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function RootLayout() {
@@ -15,8 +17,10 @@ export default function RootLayout() {
     }
   }, []);
 
+  useInitSetting();
+
   return (
-    <>
+    <GestureHandlerRootView style={styles.gestureRoot}>
       <StatusBar style="auto" />
       <View
         style={[
@@ -55,11 +59,14 @@ export default function RootLayout() {
           />
         </Stack>
       </View>
-    </>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
+  gestureRoot: {
+    flex: 1,
+  },
   container: {
     flex: 1,
   },

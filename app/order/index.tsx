@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button";
 import SegmentedControl from "@/components/ui/SegmentedControl";
 import Tabs from "@/components/ui/Tabs";
+import { Menu } from "@/data";
 import { Color, Spacing } from "@/design-token";
 import Count from "@/feature/order/ordering/components/Count";
 import MenuItemContainer from "@/feature/order/ordering/components/MenuItemContainer";
@@ -11,7 +12,7 @@ import useOrders from "@/feature/order/ordering/hooks/useOrders";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
-const dummy = [
+const dummy: Menu[] = [
   {
     id: 1,
     name: "아이템1",
@@ -71,6 +72,9 @@ const OrderScreen = () => {
       setSelectOrderId(orders[0].id);
     }
   }, [orders, selectedOrderId]);
+
+  const handleOrderSubmit = () => {};
+  const handlePaymentProcess = () => {};
 
   return (
     <View style={styles.container}>
@@ -142,10 +146,18 @@ const OrderScreen = () => {
         <View style={styles.rightBottom}>
           <Total orders={orders} />
           <View style={styles.rightButtonContainer}>
-            <Button variant="primary" style={styles.rightBottomButton}>
+            <Button
+              variant="primary"
+              style={styles.rightBottomButton}
+              onPress={handleOrderSubmit}
+            >
               주문
             </Button>
-            <Button variant="secondary" style={styles.rightBottomButton}>
+            <Button
+              variant="secondary"
+              style={styles.rightBottomButton}
+              onPress={handlePaymentProcess}
+            >
               결제
             </Button>
           </View>

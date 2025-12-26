@@ -10,14 +10,14 @@ type Props = {
   pluseHandler: () => void;
 };
 
-const Count = ({ count }: Props) => {
+const Count = ({ count, minusHandler, pluseHandler }: Props) => {
   return (
     <View style={styles.container}>
-      <Pressable>
+      <Pressable onPress={minusHandler}>
         <MinusIcon size={24} />
       </Pressable>
       <Typo variant={Typography.body.lg}>{count}</Typo>
-      <Pressable>
+      <Pressable onPress={pluseHandler}>
         <PlusIcon size={24} />
       </Pressable>
     </View>

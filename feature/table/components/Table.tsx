@@ -45,11 +45,13 @@ const Table = ({ orders, tableName, style, ...rest }: TableProps) => {
           {remainingCount > 0 && (
             <Typo variant={Typography.body.md}>외 {remainingCount}개</Typo>
           )}
-          <View style={styles.totalPriceWrapper}>
-            <Typo variant={Typography.heading.sm}>
-              {totalPrice.toLocaleString()}원
-            </Typo>
-          </View>
+          {!!orders.length && (
+            <View style={styles.totalPriceWrapper}>
+              <Typo variant={Typography.heading.sm}>
+                {totalPrice.toLocaleString()}원
+              </Typo>
+            </View>
+          )}
         </View>
       </View>
     </Pressable>
