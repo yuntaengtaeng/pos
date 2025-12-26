@@ -1,5 +1,6 @@
 import Header from "@/components/ui/Header";
 import useInitSetting from "@/hooks/useInitSetting";
+import useIsFullScreenGroup from "@/hooks/useIsFullScreenGroup";
 import * as NavigationBar from "expo-navigation-bar";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -10,6 +11,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function RootLayout() {
   const insets = useSafeAreaInsets();
+  const isFullScreenGroup = useIsFullScreenGroup();
 
   useEffect(() => {
     if (Platform.OS === "android") {
@@ -28,7 +30,7 @@ export default function RootLayout() {
           Platform.OS === "android" && { paddingTop: insets.top },
         ]}
       >
-        <Header />
+        {!isFullScreenGroup && <Header />}
         <Stack
           screenOptions={{
             headerShown: false,

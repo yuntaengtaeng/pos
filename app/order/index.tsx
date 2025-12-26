@@ -9,6 +9,8 @@ import OrderItem from "@/feature/order/ordering/components/OrderItem";
 import OrderWrapper from "@/feature/order/ordering/components/OrderWrapper";
 import Total from "@/feature/order/ordering/components/Total";
 import useOrders from "@/feature/order/ordering/hooks/useOrders";
+import { useRouter } from "expo-router";
+
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
@@ -56,6 +58,8 @@ const dummy: Menu[] = [
 ];
 
 const OrderScreen = () => {
+  const router = useRouter();
+
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
   const [orderTypeIndex, setOrderTypeIndex] = useState(0);
   const [selectedOrderId, setSelectOrderId] = useState(-1);
@@ -74,7 +78,9 @@ const OrderScreen = () => {
   }, [orders, selectedOrderId]);
 
   const handleOrderSubmit = () => {};
-  const handlePaymentProcess = () => {};
+  const handlePaymentProcess = () => {
+    router.push("/order/payment");
+  };
 
   return (
     <View style={styles.container}>
