@@ -1,6 +1,7 @@
 import Typo from "@/components/ui/Typo";
 import { OrderItem } from "@/data";
 import { Typography } from "@/design-token";
+import { calculateOrderSummary } from "@/utils/func";
 import { StyleSheet, View } from "react-native";
 
 type Props = {
@@ -8,15 +9,7 @@ type Props = {
 };
 
 const Total = ({ orders }: Props) => {
-  // 총합, 총 개수 계산
-  const { totalAmount, totalCount } = orders.reduce(
-    (acc, cur) => {
-      acc.totalAmount += cur.price * cur.count;
-      acc.totalCount += cur.count;
-      return acc;
-    },
-    { totalAmount: 0, totalCount: 0 }
-  );
+  const { totalAmount, totalCount } = calculateOrderSummary(orders);
 
   return (
     <View style={styles.container}>

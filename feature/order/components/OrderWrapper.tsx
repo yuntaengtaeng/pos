@@ -27,9 +27,9 @@ const OrderWrapper = ({
       style={[
         styles.container,
         {
-          backgroundColor: isSelected
-            ? Color.Neutral.B100
-            : Color.Neutral.WHITE,
+          ...(isSelected && {
+            backgroundColor: Color.Neutral.B100,
+          }),
         },
         style,
       ]}

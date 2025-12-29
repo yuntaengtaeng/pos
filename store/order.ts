@@ -39,6 +39,9 @@ type OrderStoreHandler = {
 
   // 현재 Order 업데이트
   setCurrentOrders: (orders: OrderItem[]) => void;
+
+  // 현재 주문 저장
+  saveCurrentOrders: () => void;
 };
 
 type OrderStore = OrderStoreState & OrderStoreHandler;
@@ -125,6 +128,83 @@ export const useOrderStore = create<OrderStore>((set, get) => ({
   },
 
   setCurrentOrders: (orders) => set({ currentOrders: orders }),
+
+  // 현재 주문 저장
+  saveCurrentOrders: () => {
+    const {
+      selectedTable,
+      selectedTakeoutOrder,
+      selectedDeliveryOrder,
+      orderType,
+      currentOrders,
+      tableSections,
+      takeoutOrders,
+      deliveryOrders,
+    } = get();
+
+    if (orderType === "table" && selectedTable) {
+      // 테이블 주문 저장
+      const updatedSections = tableSections.map((section) => ({
+        ...section,
+        tables: section.tables.map((table) =>
+          table.id === selectedTable.id
+            ? { ...table, orders: currentOrders }
+            : table
+        ),
+      }));
+
+      set({
+        tableSections: updatedSections,
+        selectedTable: { ...selectedTable, orders: currentOrders },
+      });
+    } else if (orderType === "takeout" && selectedTakeoutOrder) {
+      // 포장 주문 저장
+      const updatedTakeoutOrder = {
+        ...selectedTakeoutOrder,
+        orders: currentOrders,
+      };
+
+      // 기존 주문이 있으면 업데이트, 없으면 추가
+      const existingIndex = takeoutOrders.findIndex(
+        (order) => order.id === selectedTakeoutOrder.id
+      );
+
+      const updatedTakeoutOrders =
+        existingIndex >= 0
+          ? takeoutOrders.map((order, idx) =>
+              idx === existingIndex ? updatedTakeoutOrder : order
+            )
+          : [...takeoutOrders, updatedTakeoutOrder];
+
+      set({
+        takeoutOrders: updatedTakeoutOrders,
+        selectedTakeoutOrder: updatedTakeoutOrder,
+      });
+    } else if (orderType === "delivery" && selectedDeliveryOrder) {
+      // 배달 주문 저장
+      const updatedDeliveryOrder = {
+        ...selectedDeliveryOrder,
+        orders: currentOrders,
+      };
+
+      // 기존 주문이 있으면 업데이트, 없으면 추가
+      const existingIndex = deliveryOrders.findIndex(
+        (order) => order.id === selectedDeliveryOrder.id
+      );
+
+      const updatedDeliveryOrders =
+        existingIndex >= 0
+          ? deliveryOrders.map((order, idx) =>
+              idx === existingIndex ? updatedDeliveryOrder : order
+            )
+          : [...deliveryOrders, updatedDeliveryOrder];
+
+      set({
+        deliveryOrders: updatedDeliveryOrders,
+        selectedDeliveryOrder: updatedDeliveryOrder,
+      });
+    }
+  },
 }));
 
 // type OrderStoreState = {

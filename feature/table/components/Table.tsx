@@ -1,6 +1,7 @@
 import Typo from "@/components/ui/Typo";
 import { OrderItem } from "@/data";
 import { Color, Radius, Spacing, Typography } from "@/design-token";
+import { calculateOrderSummary } from "@/utils/func";
 import React from "react";
 import {
   Pressable,
@@ -19,10 +20,7 @@ type TableProps = {
 const MAX_DISPLAY_LENGTH = 3;
 
 const Table = ({ orders, tableName, style, ...rest }: TableProps) => {
-  const totalPrice = orders.reduce(
-    (sum, order) => sum + order.price * order.count,
-    0
-  );
+  const { totalAmount } = calculateOrderSummary(orders);
 
   const displayedOrders = orders.slice(0, MAX_DISPLAY_LENGTH);
   const remainingCount = orders.length - MAX_DISPLAY_LENGTH;
@@ -48,7 +46,7 @@ const Table = ({ orders, tableName, style, ...rest }: TableProps) => {
           {!!orders.length && (
             <View style={styles.totalPriceWrapper}>
               <Typo variant={Typography.heading.sm}>
-                {totalPrice.toLocaleString()}원
+                {totalAmount.toLocaleString()}원
               </Typo>
             </View>
           )}

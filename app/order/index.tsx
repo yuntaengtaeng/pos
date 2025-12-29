@@ -3,12 +3,13 @@ import SegmentedControl from "@/components/ui/SegmentedControl";
 import Tabs from "@/components/ui/Tabs";
 import { Menu } from "@/data";
 import { Color, Spacing } from "@/design-token";
+import OrderItem from "@/feature/order/components/OrderItem";
+import OrderWrapper from "@/feature/order/components/OrderWrapper";
+import Total from "@/feature/order/components/Total";
 import Count from "@/feature/order/ordering/components/Count";
 import MenuItemContainer from "@/feature/order/ordering/components/MenuItemContainer";
-import OrderItem from "@/feature/order/ordering/components/OrderItem";
-import OrderWrapper from "@/feature/order/ordering/components/OrderWrapper";
-import Total from "@/feature/order/ordering/components/Total";
 import useOrders from "@/feature/order/ordering/hooks/useOrders";
+import { useOrderStore } from "@/store/order";
 import { useRouter } from "expo-router";
 
 import { useEffect, useState } from "react";
@@ -63,6 +64,7 @@ const OrderScreen = () => {
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
   const [orderTypeIndex, setOrderTypeIndex] = useState(0);
   const [selectedOrderId, setSelectOrderId] = useState(-1);
+
   const {
     orders,
     handleDeleteOrder,
@@ -71,13 +73,17 @@ const OrderScreen = () => {
     handlePlusCount,
   } = useOrders();
 
+  const { saveCurrentOrders } = useOrderStore();
+
   useEffect(() => {
     if (orders.length === 1 && selectedOrderId === -1) {
       setSelectOrderId(orders[0].id);
     }
   }, [orders, selectedOrderId]);
 
-  const handleOrderSubmit = () => {};
+  const handleOrderSubmit = () => {
+    saveCurrentOrders();
+  };
   const handlePaymentProcess = () => {
     router.push("/order/payment");
   };
